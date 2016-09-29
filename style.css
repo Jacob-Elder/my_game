@@ -1,0 +1,15 @@
+#skip {
+	margin : 50px;
+	height : 40px;
+	width : 70px;
+	border-radius : 10px;
+	font-size : 24px;
+	background-color : blue;
+	float : right;
+	z-index : 5;
+}
+
+#skip:hover {
+	background-color : black;
+	color : white;
+}
