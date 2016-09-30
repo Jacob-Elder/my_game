@@ -5,17 +5,37 @@
 	margin-bottom: 25px;
 	margin-left: 20px;
 	font-size: 32px;
+	line-height: 40px;
 }
 
 #savageButton {
 	border : 2px solid white;
 	border-radius : 5px;
+	font-size: 28px;
 	color : black;
 	background-color: blue;
-	padding : 2px 5px; 
+	padding : 5px 12px; 
+	margin-left: 12%;
+	margin-top: 10px;
 }
 
 #savageButton:hover {
+	background-color: black;
+	color : white;
+}
+
+#playButton {
+	border : 2px solid white;
+	border-radius : 5px;
+	font-size: 28px;
+	color : black;
+	background-color: blue;
+	padding : 5px 12px; 
+	margin-left: 12%;
+	margin-top: 10px;
+}
+
+#playButton:hover {
 	background-color: black;
 	color : white;
 }

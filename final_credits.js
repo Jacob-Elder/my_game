@@ -360,6 +360,10 @@ $(document).ready(function(){
 	$("#savageButton").click(function(){
 		runGame();
 	});
+	//Go to the original game when the player clicks play again
+	$("#playButton").click(function(){
+		window.location.href = "index.html";
+	});
 });
 
 
