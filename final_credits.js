@@ -9,6 +9,7 @@ $(document).ready(function(){
 		var player;
 		var flag;
 		var shells;
+		var rectangle;
 		var shell;
 		var laser;
 		var spacefield;
@@ -35,6 +36,7 @@ $(document).ready(function(){
 			game.load.image('pebble', 'img/pebble.png');
 		    game.load.image('ground', 'img/kong_platform.png');
 		    game.load.image('flag', 'img/tie_fighter.png');
+		    game.load.image('rectangle', 'img/rectangle.png');
 		    game.load.image('smash_platform', 'img/smash_platform.png');
 		    game.load.image('vertical_platform', 'img/vertical_platform.png');
 		    game.load.image('line', 'img/line.png');//<-handles physics for main platform
@@ -68,7 +70,8 @@ $(document).ready(function(){
 			game.physics.startSystem(Phaser.Physics.ARCADE);
 			//add a background to the game
 			spacefield = game.add.tileSprite(0, 0, 800, 600, 'starfield');
-			backgroundv = -.8;
+			//set the scrolling speed of the background
+			backgroundv = -3.5;
 			//create a physics group for the ledges
 			platforms = game.add.group();
 			//enable physics for objects in the platforms group
@@ -83,6 +86,11 @@ $(document).ready(function(){
 			line.body.immovable = true;
 			//line.body.friction = .1;
 			line.scale.setTo(.81, 5);
+
+			//make a platform under the map to kill you if you fall
+			rectangle = game.add.sprite(-400, game.world.height-5, 'rectangle');
+			game.physics.arcade.enable(rectangle);
+			rectangle.body.immovable = true;
 
 			//create ledes to make up the map
 			var ledge = platforms.create(150, 250, 'vertical_platform');
@@ -118,7 +126,7 @@ $(document).ready(function(){
 			ledge = platforms.create(420, 94, 'vertical_platform');
 			ledge.scale.setTo(1, .76);
 			ledge.body.immovable = true;
-			ledge = platforms.create(180, 150, 'ground');
+			ledge = platforms.create(200, 150, 'ground');
 			ledge.scale.setTo(.3, .5);
 			ledge.body.immovable = true;
 
@@ -183,7 +191,6 @@ $(document).ready(function(){
 			player.body.collideWorldBounds = false;
 			//add physics to check when player leaves the world bounds
 			player.checkWorldBounds = true;
-			player.events.onOutOfBounds.add(playerOut, this);
 			//make character the right size
 			player.scale.setTo(0.5);
 			//give anchor for flipping animation
@@ -211,6 +218,7 @@ $(document).ready(function(){
 			//To display final message
 			finalMessage = game.add.text(160, 250, '', { fontSize: '80px'});
 			finalMessage.addColor("#1ed811", 0);
+
 
 			//create emitter when asteroid dies
 			emitter = game.add.emitter(0, 0, 100);
@@ -249,9 +257,8 @@ $(document).ready(function(){
 			game.physics.arcade.collide(player, asteroids, killPlayerByAsteroid);
 
 			//Kill the player when they are hit by a turtle shell
-			//uses same function as when player falls off the map
 			game.physics.arcade.collide(player, shells, playerOut);
-			
+
 			//have physics check for collisions between certain objects
 			game.physics.arcade.collide(player, platforms);
 			game.physics.arcade.collide(crate, platforms);
@@ -261,6 +268,7 @@ $(document).ready(function(){
 			game.physics.arcade.collide(player, line);
 			game.physics.arcade.collide(crate, line);
 			game.physics.arcade.collide(player, flag, youWin);
+			game.physics.arcade.collide(player, rectangle, playerOut);
 
 			//built in keyboard manager that populates cursors object with up, down, left, and right
 			cursors = game.input.keyboard.createCursorKeys();
@@ -299,7 +307,6 @@ $(document).ready(function(){
 			function youWin() {
 				playerWon = true;
 				window.location.href = "final_credits.html";
-			//alert("Congratulations! You made it to the ship and escaped from the Galactic Empire!!! Wait for Episode II to figure out what happens next.");
 			}
 		}
 		/*****************************
@@ -333,7 +340,7 @@ $(document).ready(function(){
 		function refresh() {
 			window.location.reload();
 		}
-	 	//display final message 
+	 	//display game over and refresh the page 
 		function isGameOver() {
 			if(lives < 1) {
 				setTimeout(refresh, 5000);
@@ -341,7 +348,7 @@ $(document).ready(function(){
 				gameOver.play();
 			}
 		}
-		//callback functions for emitter
+		//callback function for emitter(asteroid explosion)
 		function particleBurst() {
 		location = asteroid.body;
 	    emitter.x = location.x;
@@ -350,7 +357,9 @@ $(document).ready(function(){
 		}
 	}
 	//run the hard game code when the player clicks Savage!
-	setTimeout(runGame, 14000);
+	$("#savageButton").click(function(){
+		runGame();
+	});
 });
 
 

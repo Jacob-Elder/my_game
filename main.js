@@ -88,7 +88,7 @@ var runGame = function() {
 		line.scale.setTo(.81, 5);
 
 		//make a platform under the map to kill you if you fall
-		rectangle = game.add.sprite(-400, game.world.height-50, 'rectangle');
+		rectangle = game.add.sprite(-400, game.world.height-5, 'rectangle');
 		game.physics.arcade.enable(rectangle);
 		rectangle.body.immovable = true;
 
@@ -191,7 +191,6 @@ var runGame = function() {
 		player.body.collideWorldBounds = false;
 		//add physics to check when player leaves the world bounds
 		player.checkWorldBounds = true;
-		player.events.onOutOfBounds.add(playerOut, this);
 		//make character the right size
 		player.scale.setTo(0.5);
 		//give anchor for flipping animation
