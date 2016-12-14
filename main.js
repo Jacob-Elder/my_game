@@ -1,7 +1,5 @@
 $(document).ready(function(){
 
-console.log("Hello!");
-
 //putting all the game code in a runGame function to be called after the opening credits
 var runGame = function() {
 	//clear the html from the opening credits
@@ -36,7 +34,7 @@ var runGame = function() {
 		game.load.image('spinning_asteroid', 'img/spinning_asteroid.gif-c200');
 		game.load.image('pebble', 'img/pebble.png');
 	    game.load.image('ground', 'img/kong_platform.png');
-	    game.load.image('flag', 'img/tie_fighter.png');
+	    game.load.image('flag', 'img/spaceship.png');
 	    game.load.image('rectangle', 'img/rectangle.png');
 	    game.load.image('smash_platform', 'img/smash_platform.png');
 	    game.load.image('vertical_platform', 'img/vertical_platform.png');
@@ -46,7 +44,6 @@ var runGame = function() {
 	    game.load.image('green_laser', 'img/green_laser.png');
 	    game.load.image('turtle_shell', 'img/turtle_shell.png');
 	    //load audio files
-	    game.load.audio('roar', ['audio/chewy_roar.mp3', 'audio/chewy_roar.ogg']);
 	    game.load.audio('blaster', ['audio/blaster.mp3', 'audio/blaster.ogg']);
 	    game.load.audio('die', ['audio/mario-die.mp3', 'audio/mario-die.ogg']);
 	    game.load.audio('gameOver', ['audio/mario-gameover.mp3', 'audio/mario-gameover.ogg']);
@@ -60,7 +57,6 @@ var runGame = function() {
 		//create the final cut-scene (to be played when the player wins)
 		video = game.add.video('final_scene');
 		//create audio sounds
-		roar = game.add.audio('roar');
 		blaster = game.add.audio('blaster');
 		die = game.add.audio('die');
 		gameOver = game.add.audio('gameOver');
@@ -232,7 +228,7 @@ var runGame = function() {
 		spacefield.tilePosition.y += backgroundv;
 		//reset the player, subtract a life, and see if player is out of lives when they get hit by a laser
 		var killPlayerByLaser = function(a, b){
-			roar.play();
+			die.play();
 			b.destroy();
 			player.kill();
 			lives --;
@@ -245,7 +241,7 @@ var runGame = function() {
 		//kill the player when hit by an asteroid
 		var killPlayerByAsteroid = function(a, b){
 			particleBurst();
-			roar.play();
+			die.play();
 			b.kill();
 			player.kill();
 			lives --;

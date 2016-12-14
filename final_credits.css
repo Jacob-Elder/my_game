@@ -1,6 +1,6 @@
 #congrats {
 	z-index : 5;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	margin-bottom: 25px;
 	margin-left: 20px;
@@ -8,34 +8,16 @@
 	line-height: 40px;
 }
 
-#savageButton {
-	border : 2px solid white;
-	border-radius : 5px;
-	font-size: 28px;
-	color : black;
-	background-color: blue;
-	padding : 5px 12px; 
-	margin-left: 12%;
-	margin-top: 10px;
+#congrats p {
+	margin-bottom: -20px;
 }
 
-#savageButton:hover {
-	background-color: black;
-	color : white;
+.buttons {
+	display: block;
+	width: 430px;
+	margin: 0 auto;
 }
 
-#playButton {
-	border : 2px solid white;
-	border-radius : 5px;
-	font-size: 28px;
-	color : black;
-	background-color: blue;
-	padding : 5px 12px; 
-	margin-left: 12%;
-	margin-top: 10px;
-}
-
-#playButton:hover {
-	background-color: black;
-	color : white;
+.buttons .btn {
+	margin: 0 10%;
 }
